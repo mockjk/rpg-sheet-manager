@@ -14,7 +14,7 @@ export const CharacterProvider = ({ children }) => {
   };
 
 
-  const removeCharacter = (id) => {
+  const deleteCharacter = (id) => {
     setCharacters(characters.filter(character => character.id !== id));
   };
 
@@ -26,7 +26,7 @@ export const CharacterProvider = ({ children }) => {
   };
 
   return (
-    <CharacterContext.Provider value={{ characters, addCharacter, removeCharacter, updateCharacter }}>
+    <CharacterContext.Provider value={{ characters, addCharacter, deleteCharacter, updateCharacter }}>
       {children}
     </CharacterContext.Provider>
   );

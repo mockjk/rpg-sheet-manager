@@ -1,21 +1,21 @@
-import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
-import { CharacterContext } from "../context/CharacterContext";
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { CharacterContext } from '../context/CharacterContext';
 
 export default function EditSpellsScreen({ route, navigation }) {
   const { characterId } = route.params;
   const { characters, updateCharacter } = useContext(CharacterContext);
 
-  const character = characters.find((c) => c.id === characterId);
+  const character = characters.find(c => c.id === characterId);
   const [spells, setSpells] = useState(character?.spells || []);
 
   const handleAddSpell = () => {
     const newSpell = {
       id: Math.random().toString(),
-      name: "",
-      difficulty: "",
-      mana: "",
-      description: "",
+      name: '',
+      difficulty: '',
+      mana: '',
+      description: '',
     };
     setSpells([...spells, newSpell]);
   };
@@ -35,73 +35,82 @@ export default function EditSpellsScreen({ route, navigation }) {
     setSpells(newSpells);
   };
 
+  const handleDeleteSpell = (index) => {
+    const newSpells = spells.filter((_, i) => i !== index);
+    setSpells(newSpells);
+  };
+
   return (
     <View style={styles.container}>
-    <ScrollView>
-      <Text style={styles.characterName}>{character.name}</Text>
+      <ScrollView>
+        <Text style={styles.characterName}>{character.name}</Text>
 
-      {spells.map((spell, index) => (
-        <View key={spell.id} style={styles.spellContainer}>
-          <Text style={styles.label}>Spell Name</Text>
-          <TextInput
-            style={styles.input}
-            value={spell.name}
-            onChangeText={(text) => handleChangeSpell(index, "name", text)}
-          />
+        {spells.map((spell, index) => (
+          <View key={spell.id} style={styles.spellContainer}>
+            <Text style={styles.label}>Spell Name</Text>
+            <TextInput
+              style={styles.input}
+              value={spell.name}
+              onChangeText={text => handleChangeSpell(index, 'name', text)}
+            />
 
-          <Text style={styles.label}>Difficulty</Text>
-          <TextInput
-            style={styles.input}
-            value={spell.difficulty}
-            keyboardType="numeric"
-            onChangeText={(text) =>
-              handleChangeSpell(index, "difficulty", text)
-            }
-          />
+            <Text style={styles.label}>Difficulty</Text>
+            <TextInput
+              style={styles.input}
+              value={spell.difficulty}
+              keyboardType="numeric"
+              onChangeText={text => handleChangeSpell(index, 'difficulty', text)}
+            />
 
-          <Text style={styles.label}>Mana</Text>
-          <TextInput
-            style={styles.input}
-            value={spell.mana}
-            keyboardType="numeric"
-            onChangeText={(text) => handleChangeSpell(index, "mana", text)}
-          />
+            <Text style={styles.label}>Mana</Text>
+            <TextInput
+              style={styles.input}
+              value={spell.mana}
+              keyboardType="numeric"
+              onChangeText={text => handleChangeSpell(index, 'mana', text)}
+            />
 
-          <Text style={styles.label}>Description</Text>
-          <TextInput
-            style={styles.input}
-            value={spell.description}
-            onChangeText={(text) =>
-              handleChangeSpell(index, "description", text)
-            }
-          />
+            <Text style={styles.label}>Description</Text>
+            <TextInput
+              style={styles.input}
+              value={spell.description}
+              onChangeText={text => handleChangeSpell(index, 'description', text)}
+            />
+
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => handleDeleteSpell(index)}
+            >
+              <Text style={styles.deleteButtonText}>Delete Spell</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+
+        <View style={{gap: 15}}>
+          <Button title="Add Spell" onPress={handleAddSpell} />
+          <Button title="Save" onPress={handleSave} />
         </View>
-      ))}
-
-      <Button title="Add Spell" onPress={handleAddSpell} />
-      
-      <Button title="Save" onPress={handleSave} />
-      </ScrollView>
+    </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
   },
   characterName: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 16,
-    textAlign: "center",
+    textAlign: 'center',
   },
   spellContainer: {
     marginBottom: 16,
     padding: 8,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 4,
   },
@@ -111,9 +120,20 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 16,
     paddingHorizontal: 8,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 4,
+    alignSelf: 'center',
+    marginTop: 8,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });

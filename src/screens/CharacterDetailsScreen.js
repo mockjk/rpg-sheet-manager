@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { CharacterContext } from "../context/CharacterContext";
 import { width } from "../Dimensions/measures";
 
 export default function EditCharacterScreen({ route, navigation }) {
   const { characterId } = route.params;
-  const { characters, updateCharacter } = useContext(CharacterContext);
+  const { characters, updateCharacter, deleteCharacter } = useContext(CharacterContext);
 
   const character = characters.find(c => c.id === characterId);
   const [name, setName] = useState(character?.name || '');
@@ -25,6 +25,24 @@ export default function EditCharacterScreen({ route, navigation }) {
     };
     updateCharacter(updatedCharacter);
     navigation.goBack();
+  };
+
+  const handleDelete = () => {
+    Alert.alert(
+      'Delete Character',
+      'Are you sure you want to delete this character?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            deleteCharacter(characterId);
+            navigation.goBack();
+          },
+        },
+      ],
+    );
   };
 
   return (
@@ -74,6 +92,12 @@ export default function EditCharacterScreen({ route, navigation }) {
         <Button
           title="Edit Spells"
           onPress={() => navigation.navigate('EditSpells', { characterId })}
+        />
+
+        <Button
+          title="Delete Character"
+          onPress={handleDelete}
+          color="red"
         />
 
         <Button title="Save" onPress={handleSave} />
