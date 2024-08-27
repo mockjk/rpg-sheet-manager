@@ -20,6 +20,7 @@ export default function App(){
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerTitleAlign: "center",
         }}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="EditCharacter" component={CharacterDetailsScreen} options={{headerTitle: "Edit Character"}} />

@@ -14,6 +14,8 @@ export default function CharacterListScreen({ navigation }){
       agility: 10,
       intelligence: 10,
       willing: 10,
+      health: 10,
+      mana: 10,
       spells: [],
     };
     addCharacter(newCharacter);
