@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { CharacterContext } from "../context/CharacterContext";
+import { View } from 'react-native';
+import { ListItem, Button, Text } from 'react-native-elements';
+import { CharacterContext } from '../context/CharacterContext';
 
-export default function HomeScreen({ navigation }) {
+export default function CharacterListScreen({ navigation }){
   const { characters, addCharacter } = useContext(CharacterContext);
 
   const handleAddCharacter = () => {
@@ -13,49 +14,36 @@ export default function HomeScreen({ navigation }) {
       agility: 10,
       intelligence: 10,
       willing: 10,
+      spells: [],
     };
     addCharacter(newCharacter);
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Add Character" onPress={handleAddCharacter} />
-      <FlatList
-        data={characters}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.characterItem}>
-            <Text style={styles.characterName}>{item.name}</Text>
-            <Button
-              title="View Details"
-              onPress={() => navigation.navigate('CharacterDetails', { characterId: item.id })}
-            />
-          </View>
-        )}
+    <View style={{ flex: 1, backgroundColor: '#222831', padding: 16 }}>
+      <Text h4 style={{ color: '#EEEEEE', marginBottom: 16, textAlign: 'center' }}>
+        Character List
+      </Text>
+      
+      {characters.map((character) => (
+        <ListItem
+          key={character.id}
+          containerStyle={{ backgroundColor: '#31363F', borderColor: '#76ABAE', borderWidth: 1, marginVertical: 10 }}
+          bottomDivider
+          onPress={() => navigation.navigate('EditCharacter', { characterId: character.id })}
+        >
+          <ListItem.Content>
+            <ListItem.Title style={{ color: '#EEEEEE' }}>{character.name}</ListItem.Title>
+            <ListItem.Subtitle style={{ color: '#76ABAE' }}>{character.id}</ListItem.Subtitle>
+          </ListItem.Content>
+        </ListItem>
+      ))}
+      
+      <Button
+        title="Add Character"
+        onPress={handleAddCharacter}
+        buttonStyle={{ backgroundColor: '#76ABAE', marginTop: 16 }}
       />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  characterItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#ffffff',
-    marginBottom: 8,
-    borderRadius: 4,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  characterName: {
-    fontSize: 18,
-  },
-});

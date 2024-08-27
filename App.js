@@ -12,10 +12,18 @@ export default function App(){
   return (
     <CharacterProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Home" screenOptions={{
+          headerStyle: {
+            backgroundColor: "#222831",
+          },
+          headerTintColor: "#EEEEEE",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}>
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="CharacterDetails" component={CharacterDetailsScreen} />
-          <Stack.Screen name="EditSpells" component={EditSpellsScreen} />
+          <Stack.Screen name="EditCharacter" component={CharacterDetailsScreen} options={{headerTitle: "Edit Character"}} />
+          <Stack.Screen name="EditSpells" component={EditSpellsScreen} options={{headerTitle: "Edit Spells"}}/>
         </Stack.Navigator>
       </NavigationContainer>
     </CharacterProvider>

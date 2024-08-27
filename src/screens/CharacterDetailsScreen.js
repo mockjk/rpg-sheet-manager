@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
-import { CharacterContext } from "../context/CharacterContext";
-import { width } from "../Dimensions/measures";
+import React, { useState, useContext } from 'react';
+import { View } from 'react-native';
+import { Input, Button, Text } from 'react-native-elements';
+import { CharacterContext } from '../context/CharacterContext';
 
-export default function EditCharacterScreen({ route, navigation }) {
+export default function EditCharacterScreen({ route, navigation }){
   const { characterId } = route.params;
   const { characters, updateCharacter, deleteCharacter } = useContext(CharacterContext);
 
@@ -28,115 +28,70 @@ export default function EditCharacterScreen({ route, navigation }) {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      'Delete Character',
-      'Are you sure you want to delete this character?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => {
-            deleteCharacter(characterId);
-            navigation.goBack();
-          },
-        },
-      ],
-    );
+    deleteCharacter(characterId);
+    navigation.goBack();
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.characterName}>Edit Character</Text>
+    <View style={{ flex: 1, padding: 16, backgroundColor: '#222831' }}>
       
-      <Text style={styles.label}>Name</Text>
-      <TextInput
-        style={styles.input}
+      <Input
+        label="Name"
         value={name}
         onChangeText={setName}
+        inputStyle={{ color: '#EEEEEE' }}
+        labelStyle={{ color: '#76ABAE' }}
       />
       
-      <Text style={styles.label}>Strength</Text>
-      <TextInput
-        style={styles.input}
+      <Input
+        label="Strength"
         value={strength}
         keyboardType="numeric"
         onChangeText={setStrength}
+        inputStyle={{ color: '#EEEEEE' }}
+        labelStyle={{ color: '#76ABAE' }}
       />
       
-      <Text style={styles.label}>Agility</Text>
-      <TextInput
-        style={styles.input}
+      <Input
+        label="Agility"
         value={agility}
         keyboardType="numeric"
         onChangeText={setAgility}
+        inputStyle={{ color: '#EEEEEE' }}
+        labelStyle={{ color: '#76ABAE' }}
       />
       
-      <Text style={styles.label}>Intelligence</Text>
-      <TextInput
-        style={styles.input}
+      <Input
+        label="Intelligence"
         value={intelligence}
         keyboardType="numeric"
         onChangeText={setIntelligence}
+        inputStyle={{ color: '#EEEEEE' }}
+        labelStyle={{ color: '#76ABAE' }}
       />
       
-      <Text style={styles.label}>Willing</Text>
-      <TextInput
-        style={styles.input}
+      <Input
+        label="Willing"
         value={willing}
         keyboardType="numeric"
         onChangeText={setWilling}
+        inputStyle={{ color: '#EEEEEE' }}
+        labelStyle={{ color: '#76ABAE' }}
       />
       
-      <View style={{gap: 15}}>
-        <Button
-          title="Edit Spells"
-          onPress={() => navigation.navigate('EditSpells', { characterId })}
-        />
-
-        <Button
-          title="Delete Character"
-          onPress={handleDelete}
-          color="red"
-        />
-
-        <Button title="Save" onPress={handleSave} />
-      </View>
+      <Button
+        title="Edit Spells"
+        onPress={() => navigation.navigate('EditSpells', { characterId })}
+        buttonStyle={{ backgroundColor: '#76ABAE', marginBottom: 10 }}
+      />
+      
+      <Button
+        title="Delete Character"
+        onPress={handleDelete}
+        buttonStyle={{ backgroundColor: '#d8445d', marginBottom: 10 }}
+      />
+      
+      <Button title="Save" onPress={handleSave} buttonStyle={{ backgroundColor: '#76ABAE' }} />
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  characterName: {
-    fontSize: 24,
-    marginRight: -width*0.05,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    marginLeft: -width*.05,
-    textAlign: 'center',
-  },
-  characterId: {
-    fontSize: 14,
-    color: '#888',
-    marginBottom: 16,
-    marginLeft: -width*.05,
-    textAlign: 'center',
-  },
-  label: {
-    alignSelf: "center",
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-});
+};

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { Input, Button, Text, Card } from 'react-native-elements';
 import { CharacterContext } from '../context/CharacterContext';
 
 export default function EditSpellsScreen({ route, navigation }) {
@@ -41,99 +42,59 @@ export default function EditSpellsScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, padding: 16, backgroundColor: '#222831' }}>
       <ScrollView>
-        <Text style={styles.characterName}>{character.name}</Text>
+        <Text h4 style={{ color: '#EEEEEE', textAlign: 'center', marginBottom: 16 }}>
+          {character.name}
+        </Text>
 
         {spells.map((spell, index) => (
-          <View key={spell.id} style={styles.spellContainer}>
-            <Text style={styles.label}>Spell Name</Text>
-            <TextInput
-              style={styles.input}
+          <Card key={spell.id} containerStyle={{ backgroundColor: '#31363F', borderColor: '#76ABAE' }}>
+            <Input
+              label="Spell Name"
               value={spell.name}
               onChangeText={text => handleChangeSpell(index, 'name', text)}
+              inputStyle={{ color: '#EEEEEE' }}
+              labelStyle={{ color: '#76ABAE' }}
             />
 
-            <Text style={styles.label}>Difficulty</Text>
-            <TextInput
-              style={styles.input}
+            <Input
+              label="Difficulty"
               value={spell.difficulty}
               keyboardType="numeric"
               onChangeText={text => handleChangeSpell(index, 'difficulty', text)}
+              inputStyle={{ color: '#EEEEEE' }}
+              labelStyle={{ color: '#76ABAE' }}
             />
 
-            <Text style={styles.label}>Mana</Text>
-            <TextInput
-              style={styles.input}
+            <Input
+              label="Mana"
               value={spell.mana}
               keyboardType="numeric"
               onChangeText={text => handleChangeSpell(index, 'mana', text)}
+              inputStyle={{ color: '#EEEEEE' }}
+              labelStyle={{ color: '#76ABAE' }}
             />
 
-            <Text style={styles.label}>Description</Text>
-            <TextInput
-              style={styles.input}
+            <Input
+              label="Description"
               value={spell.description}
               onChangeText={text => handleChangeSpell(index, 'description', text)}
+              inputStyle={{ color: '#EEEEEE' }}
+              labelStyle={{ color: '#76ABAE' }}
             />
 
-            <TouchableOpacity
-              style={styles.deleteButton}
+            <Button
+              title="Delete Spell"
               onPress={() => handleDeleteSpell(index)}
-            >
-              <Text style={styles.deleteButtonText}>Delete Spell</Text>
-            </TouchableOpacity>
-          </View>
+              buttonStyle={{ backgroundColor: '#d8445d', marginTop: 10, alignSelf: 'center', width: 150 }}
+            />
+          </Card>
         ))}
 
-        <View style={{gap: 15}}>
-          <Button title="Add Spell" onPress={handleAddSpell} />
-          <Button title="Save" onPress={handleSave} />
-        </View>
-    </ScrollView>
+        <Button title="Add Spell" onPress={handleAddSpell} buttonStyle={{ backgroundColor: '#76ABAE', marginVertical: 10 }} />
+        <Button title="Save" onPress={handleSave} buttonStyle={{ backgroundColor: '#76ABAE' }} />
+      </ScrollView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  characterName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  spellContainer: {
-    marginBottom: 16,
-    padding: 8,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 4,
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    marginBottom: 16,
-    paddingHorizontal: 8,
-  },
-  deleteButton: {
-    backgroundColor: 'red',
-    padding: 10,
-    borderRadius: 4,
-    alignSelf: 'center',
-    marginTop: 8,
-  },
-  deleteButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-});
