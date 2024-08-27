@@ -26,15 +26,21 @@ Para utilizar o aplicativo, siga os passos abaixo:
 - Acesse o aplicativo no QR code gerado
 
 ## Vídeos de Demonstração
-- Vídeo de Demonstração 1
-- Vídeo de Demonstração 2
+
 
 ## Imagens do Aplicativo
-- Imagem do aplicativo 1
-- Imagem do aplicativo 2
+- <img src="https://github.com/user-attachments/assets/ae7e5f0b-8adf-497a-97e4-dc8b759bd5f4" alt="image" width="250"/>
+- <img src="https://github.com/user-attachments/assets/317abed3-6937-4928-b63b-442a57f16093" alt="image" width="250"/>
+- <img src="https://github.com/user-attachments/assets/8f98dde3-47e8-4daf-92ba-a00efe46488b" alt="image" width="250"/>
+
+
+
 
 ## Desenvolvedores e suas Funções
-- **Aluno1:** Implementação da interface gráfica
-- **Aluna1:** Implementação das funcionalidades de gerenciamento de personagens
-- **Aluno2:** Implementação de Global Context
-- **Aluna2:** Implementação da biblioteca React Navigation
+- **Richard Vinicius Ferreira da Silva** Implementação das funcionalidades de gerenciamento de personagens
+- **Pedro Hayashida de Azevedo** Implementação da interface gráfica
+- **Pedro Kohn** Implementação de Global Context
+- **Cauã Queiroz Guerra** Implementação da biblioteca React Navigation
+- **Murilo Giovani dos Santos** Design da página de edição de magias
+- **Noemi Benedito** Design da página de listagem de personagens(inicial)
+- **Letícia Gonçalves** Design da página de edição de personagens
